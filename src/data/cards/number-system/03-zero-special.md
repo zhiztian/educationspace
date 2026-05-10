@@ -9,6 +9,31 @@ grade_max: 6
 difficulty: 3
 tags: [数的概念, 0, 易错]
 related: [ns-01-natural-numbers, ns-04-odd-even, ns-05-prime-composite]
+review_status: draft
+quiz:
+  - q: 0 是自然数吗？
+    a: 是（且是最小的自然数）
+    difficulty: 1
+  - q: 0 是偶数吗？
+    a: 是。0 ÷ 2 = 0 没有余数
+    explanation: 这是最常见错点之一
+    difficulty: 1
+  - q: 0 是正数吗？是负数吗？
+    a: 都不是。0 是正负的分界点
+    difficulty: 2
+  - q: 0 是质数还是合数？
+    a: 都不是。0 不参与质合分类（质合只在大于 1 的自然数里讨论）
+    difficulty: 3
+  - q: 5 ÷ 0 等于多少？
+    a: 没有意义。0 绝对不能做除数
+    explanation: 注意区分：0 ÷ 5 = 0（可以）；5 ÷ 0 没意义
+    difficulty: 2
+  - q: 0 的相反数是？绝对值是？
+    a: 都是 0 本身
+    difficulty: 3
+  - q: 一个分数的分母可以是 0 吗？
+    a: 不可以。分母 = 0 等价于除以 0，无意义。但分子可以是 0（如 0/5 = 0）
+    difficulty: 3
 ---
 
 ## 适用范围

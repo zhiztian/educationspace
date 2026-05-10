@@ -9,6 +9,7 @@ grade_max: 6
 difficulty: 3
 tags: [数的概念, 质数, 合数, 笑笑痛点]
 related: [ns-03-zero-special, ns-06-factors-multiples, ns-08-coprime]
+review_status: draft
 quiz:
   - q: 1 是质数吗？
     a: 不是。质数定义要求大于 1

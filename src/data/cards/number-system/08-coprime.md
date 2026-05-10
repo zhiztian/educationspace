@@ -9,6 +9,28 @@ grade_max: 6
 difficulty: 3
 tags: [数的概念, 互质, 易错]
 related: [ns-05-prime-composite, ns-07-gcd-lcm]
+review_status: draft
+quiz:
+  - q: 4 和 9 互质吗？两个数都是合数吗？
+    a: 互质（公因数只有 1），且两个都是合数
+    explanation: 互质 ≠ 都是质数，这是最常见的概念混淆
+    difficulty: 2
+  - q: 1 和 100 互质吗？
+    a: 互质。1 与任何非零自然数都互质
+    difficulty: 1
+  - q: 7 和 14 互质吗？
+    a: 不互质。7 是 14 的因数，公因数有 1 和 7
+    difficulty: 2
+  - q: 两个不同的质数一定互质吗？
+    a: 一定。例如 3 和 5、2 和 7
+    explanation: 因为质数的因数只有 1 和自身，两个不同质数没有共同的非 1 因数
+    difficulty: 3
+  - q: 两个连续的奇数（如 9 和 11）一定互质吗？为什么？
+    a: 一定。两数差为 2，公因数必须能整除 2；但奇数没有因数 2，所以公因数只能是 1
+    difficulty: 4
+  - q: 可以说"3 是互质数"吗？
+    a: 不可以。互质是两个数之间的关系，必须说"3 和 X 互质"
+    difficulty: 3
 ---
 
 ## 适用范围
