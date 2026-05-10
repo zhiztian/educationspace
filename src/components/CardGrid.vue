@@ -13,7 +13,7 @@ defineProps<{
   </div>
   <div
     v-else
-    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
+    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
   >
     <CardComponent
       v-for="card in cards"

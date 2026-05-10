@@ -5,6 +5,8 @@ export interface QuizItem {
   difficulty: 1 | 2 | 3 | 4
 }
 
+export type ReviewStatus = 'draft' | 'reviewed' | 'needs_check'
+
 export interface CardMeta {
   id: string
   title: string
@@ -17,6 +19,8 @@ export interface CardMeta {
   tags: string[]
   related?: string[]
   quiz?: QuizItem[]
+  review_status?: ReviewStatus
+  standard_ref?: string[]
 }
 
 export interface Card extends CardMeta {

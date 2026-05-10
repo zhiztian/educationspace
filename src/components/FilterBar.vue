@@ -15,10 +15,10 @@ const emit = defineEmits<{
 }>()
 
 const difficulties = [
-  { v: 1, label: '⭐ 泽泽专属', cls: 'bg-emerald-100 text-emerald-700 border-emerald-300' },
-  { v: 2, label: '⭐⭐ 双方可抢', cls: 'bg-blue-100 text-blue-700 border-blue-300' },
-  { v: 3, label: '⭐⭐⭐ 笑笑专属', cls: 'bg-amber-100 text-amber-700 border-amber-300' },
-  { v: 4, label: '⭐⭐⭐⭐ 挑战题', cls: 'bg-red-100 text-red-700 border-red-300' },
+  { v: 1, label: '⭐ 泽泽' },
+  { v: 2, label: '⭐⭐ 双方' },
+  { v: 3, label: '⭐⭐⭐ 笑笑' },
+  { v: 4, label: '⭐⭐⭐⭐ 挑战' },
 ]
 
 function toggleDifficulty(v: number) {
@@ -42,55 +42,42 @@ const searchValue = computed({
 </script>
 
 <template>
-  <div class="bg-white border border-slate-200 rounded-xl p-4 mb-6 shadow-sm">
-    <div class="flex flex-col gap-3 md:flex-row md:items-center md:gap-4">
+  <div class="mb-6">
+    <div class="flex flex-col gap-3 md:flex-row md:items-center md:gap-6">
       <!-- 主题 -->
-      <div class="flex items-center gap-2">
-        <label class="text-sm text-slate-600 whitespace-nowrap">主题：</label>
-        <select
-          v-model="topicValue"
-          class="border border-slate-300 rounded px-2 py-1 text-sm bg-white"
-        >
-          <option value="">全部</option>
-          <option v-for="t in TOPICS" :key="t.id" :value="t.id">
-            {{ t.order }}. {{ t.name }}
-          </option>
-        </select>
-      </div>
+      <select
+        v-model="topicValue"
+        class="border-0 border-b border-slate-300 focus:border-slate-700 focus:ring-0 px-0 py-1 text-sm bg-transparent text-slate-700"
+      >
+        <option value="">全部主题</option>
+        <option v-for="t in TOPICS" :key="t.id" :value="t.id">
+          {{ t.order }}. {{ t.name }}
+        </option>
+      </select>
 
       <!-- 搜索 -->
-      <div class="flex items-center gap-2 flex-1">
-        <label class="text-sm text-slate-600 whitespace-nowrap">搜索：</label>
-        <input
-          v-model="searchValue"
-          type="text"
-          placeholder="标题 / 标签 / 正文..."
-          class="border border-slate-300 rounded px-2 py-1 text-sm flex-1"
-        />
-      </div>
-    </div>
+      <input
+        v-model="searchValue"
+        type="text"
+        placeholder="搜索 标题 / 标签 / 正文…"
+        class="flex-1 border-0 border-b border-slate-300 focus:border-slate-700 focus:ring-0 px-0 py-1 text-sm bg-transparent text-slate-700 placeholder-slate-400"
+      />
 
-    <!-- 难度 -->
-    <div class="flex flex-wrap items-center gap-2 mt-3">
-      <span class="text-sm text-slate-600">难度：</span>
-      <button
-        v-for="d in difficulties"
-        :key="d.v"
-        type="button"
-        class="text-xs px-2 py-1 rounded-full border transition"
-        :class="isActive(d.v) ? d.cls : 'bg-slate-50 text-slate-500 border-slate-200 hover:bg-slate-100'"
-        @click="toggleDifficulty(d.v)"
-      >
-        {{ d.label }}
-      </button>
-      <button
-        v-if="selectedDifficulties.length > 0"
-        type="button"
-        class="text-xs text-slate-500 hover:text-slate-700 underline ml-2"
-        @click="emit('update:selectedDifficulties', [])"
-      >
-        清空
-      </button>
+      <!-- 难度 -->
+      <div class="flex flex-wrap items-center gap-2">
+        <button
+          v-for="d in difficulties"
+          :key="d.v"
+          type="button"
+          class="text-xs px-3 py-1 rounded-full border transition"
+          :class="isActive(d.v)
+            ? 'bg-slate-800 text-white border-slate-800'
+            : 'bg-white text-slate-500 border-slate-300 hover:border-slate-500'"
+          @click="toggleDifficulty(d.v)"
+        >
+          {{ d.label }}
+        </button>
+      </div>
     </div>
   </div>
 </template>
