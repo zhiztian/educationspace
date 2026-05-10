@@ -4,6 +4,12 @@ import CardComponent from './Card.vue'
 
 defineProps<{
   cards: Card[]
+  focusedIdx?: number
+  showFocus?: boolean
+}>()
+
+const emit = defineEmits<{
+  (e: 'focus', idx: number): void
 }>()
 </script>
 
@@ -15,10 +21,16 @@ defineProps<{
     v-else
     class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
   >
-    <CardComponent
-      v-for="card in cards"
+    <div
+      v-for="(card, i) in cards"
       :key="card.id"
-      :card="card"
-    />
+      :data-card-idx="i"
+    >
+      <CardComponent
+        :card="card"
+        :focused="showFocus && i === focusedIdx"
+        @mouseenter="emit('focus', i)"
+      />
+    </div>
   </div>
 </template>

@@ -3,6 +3,7 @@ import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getCardsByTopic } from '@/lib/cardLoader'
 import { getTopic } from '@/data/topics'
+import { useGamepad } from '@/lib/useGamepad'
 
 const route = useRoute()
 const router = useRouter()
@@ -303,6 +304,41 @@ function onKey(e: KeyboardEvent) {
   }
 }
 
+// === 跨卡快速跳转（手柄 D-pad 上下 / LB / RB）===
+function gotoCard(delta: number) {
+  const target = idx.value + delta
+  if (target < 0 || target >= total.value) return
+  pageIdx.value = 0
+  wantLastPage.value = false
+  router.replace({
+    name: 'study',
+    params: { topicId: topicId.value, idx: String(target) },
+  })
+}
+
+// === 手柄 ===
+const { connected: padConnected } = useGamepad({
+  onAction: a => {
+    if (inQuiz.value) {
+      // 完成页：menu(Y) 重来；其余按既有逻辑
+      if (quizDone.value && a === 'menu') { quizRestart(); return }
+      if (a === 'confirm' || a === 'right') quizNext()
+      else if (a === 'cancel' || a === 'left') quizPrev()
+      else if (a === 'menu') exitQuiz()
+      else if (a === 'exit') exit()
+      else if (a === 'page_up') gotoCard(-1)
+      else if (a === 'page_down') gotoCard(1)
+      return
+    }
+    if (a === 'confirm' || a === 'right') next()
+    else if (a === 'cancel' || a === 'left') prev()
+    else if (a === 'menu') startQuiz()
+    else if (a === 'exit') exit()
+    else if (a === 'up' || a === 'page_up') gotoCard(-1)
+    else if (a === 'down' || a === 'page_down') gotoCard(1)
+  },
+})
+
 // 节流：rAF + 高度差阈值，避免 ResizeObserver 抖动重排死循环
 let rafId = 0
 let lastStageH = 0
@@ -381,12 +417,21 @@ onUnmounted(() => {
           </template>
         </div>
       </div>
-      <span
-        class="text-slate-300 text-sm pt-1"
-        :title="difficultyAudience[card.difficulty]"
-      >
-        {{ difficultyLabel[card.difficulty] }}
-      </span>
+      <div class="flex items-center gap-2 pt-1 shrink-0">
+        <span
+          v-if="padConnected"
+          class="text-emerald-500 text-xs"
+          title="手柄已连接 — A 翻页 / B 退一步 / Y 例题 / Start 退出"
+        >
+          🎮
+        </span>
+        <span
+          class="text-slate-300 text-sm"
+          :title="difficultyAudience[card.difficulty]"
+        >
+          {{ difficultyLabel[card.difficulty] }}
+        </span>
+      </div>
     </header>
 
     <!-- 进度条 -->

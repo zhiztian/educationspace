@@ -5,6 +5,7 @@ import { getTopic } from '@/data/topics'
 
 const props = defineProps<{
   card: Card
+  focused?: boolean
 }>()
 
 const router = useRouter()
@@ -31,7 +32,10 @@ const difficultyAudience: Record<number, string> = {
 
 <template>
   <div
-    class="group cursor-pointer bg-white rounded-xl border border-slate-200 hover:border-slate-400 hover:shadow-sm transition-all p-6 flex flex-col"
+    class="group cursor-pointer bg-white rounded-xl border transition-all p-6 flex flex-col"
+    :class="focused
+      ? 'border-emerald-500 ring-2 ring-emerald-300 ring-offset-2 shadow-md'
+      : 'border-slate-200 hover:border-slate-400 hover:shadow-sm'"
     @click="openDetail"
   >
     <!-- 主题 + 难度 -->
